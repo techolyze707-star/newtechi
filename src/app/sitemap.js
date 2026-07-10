@@ -32,24 +32,7 @@ export default async function sitemap() {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/documents`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/quiz`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
@@ -68,18 +51,8 @@ export default async function sitemap() {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/disclaimer`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/cookie-policy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
+  
+  
   ];
 
   // Get all blogs

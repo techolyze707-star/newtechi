@@ -6,6 +6,7 @@ import { getLatestBlogs } from '@/actions/blogs';
 import NewsLetter from '@/components/newsletter';
 import SectionHeader from '@/components/sectionHeader/SectionHeader';
 import NewsHero from '@/components/NewsHero';
+import { getCoverImageData } from '@/lib/blog-utils';
 
 export default async function Home() {
   const blogsResult = await getLatestBlogs(6);
@@ -17,7 +18,7 @@ export default async function Home() {
   // Distribute the remaining items dynamically across the lists below
   const mainFeedBlogs = blogs.slice(1, 4); 
   const sidebarBlogs = blogs.slice(4, 6);
-  const coverImageData = getCoverImageData(blog.coverImage);
+  const coverImageData = getCoverImageData(featuredBlog.coverImage);
 
   return (
     <div className="bg-[#171717] min-h-screen overflow-hidden text-white">
