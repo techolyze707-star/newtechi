@@ -83,7 +83,7 @@ export default async function Home() {
                     {sidebarBlogs.map((blog) => (
                       <Link 
                         key={blog._id} 
-                        href={`/open/${blog.type || 'tech'}/${blog.slug || blog._id}`}
+                        href={`/blogs/${blog.slug || blog._id}`}
                         className="group flex flex-col gap-1 py-2 border-b border-neutral-800/60 last:border-none last:pb-0"
                       >
                         <span className="text-xs text-neutral-500 uppercase font-medium">
@@ -108,11 +108,11 @@ export default async function Home() {
         </div>
 
         {/* Section Footer & Newsletter */}
-        <SectionHeader 
+        {/* <SectionHeader 
           heading={"Insights and knowledge from our community"} 
           badge={"INSIGHTS"} 
           buttonText={"View All"} 
-        />
+        /> */}
         <NewsLetter />
       </section>
     </div>

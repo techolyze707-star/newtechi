@@ -119,7 +119,7 @@ export function FeaturedCard({
             id={`featured-title-${slug}`}
             className="text-3xl md:text-5xl font-bold mb-4 line-clamp-5 leading-tight drop-shadow-md" >
             <Link
-              href={`/open/${type}/${slug}`}
+              href={`/blogs/${slug}`}
               className="hover:opacity-80 transition-opacity duration-300"
             >
               {title}
@@ -159,7 +159,7 @@ export function FeaturedCard({
 
           {/* CTA Button */}
           <Link
-            href={`/open/${type}/${slug}`}
+            href={`/blogs/${slug}`}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black text-sm font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             aria-label={`Read more about ${title}`}
           >
