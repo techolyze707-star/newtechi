@@ -1,0 +1,296 @@
+'use server';
+
+import connectDB from '@/lib/mongodb';
+import Blog from '@/models/Blog';
+import Author from '@/models/Author';
+// import Feedback from '@/models/Feedback';
+// import Comment from '@/models/Comment';
+import { revalidatePath } from 'next/cache';
+import mongoose from 'mongoose';
+import { validateAdminCredentials } from '@/lib/auth';
+
+// Admin login
+export async function adminLogin(username, password) {
+    if (!username || !password) {
+        return { success: false, error: 'Username and password are required' };
+    }
+
+    if (validateAdminCredentials(username, password)) {
+        return { success: true, message: 'Authentication successful' };
+    }
+
+    return { success: false, error: 'Invalid credentials' };
+}
+
+// Get admin statistics
+export async function getAdminStats() {
+    try {
+        // Set a timeout for the entire operation
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Stats fetch timeout')), 12000)
+        );
+
+        const statsPromise = (async () => {
+            await connectDB();
+
+            const [
+                totalBlogs,
+                // totalDocuments,
+                // totalSites,
+                // totalQuizzes,
+                // totalFeedback,
+                // totalComments
+            ] = await Promise.all([
+                Blog.countDocuments({}),
+                // Document.countDocuments({}),
+                // Site.countDocuments({}),
+                // Quiz.countDocuments({}),
+                // Feedback.countDocuments({}),
+                // Comment.countDocuments({ status: 'visible' })
+            ]);
+
+            return {
+                blogs: totalBlogs,
+                // documents: totalDocuments,
+                // sites: totalSites,
+                // quizzes: totalQuizzes,
+                // feedback: totalFeedback,
+                // comments: totalComments
+            };
+        })();
+
+        const stats = await Promise.race([statsPromise, timeoutPromise]);
+
+        return {
+            success: true,
+            stats
+        };
+    } catch (error) {
+        console.error('Error fetching admin stats:', error);
+        return {
+            success: false,
+            error: error.message || 'Failed to fetch statistics',
+            stats: {
+                blogs: 0,
+                // documents: 0,
+                // sites: 0,
+                // quizzes: 0,
+                // feedback: 0,
+                // comments: 0
+            }
+        };
+    }
+}
+
+// Get all blogs for admin with pagination and search
+export async function getAllBlogsAdmin(page = 1, limit = 10, searchQuery = '') {
+    try {
+        await connectDB();
+
+        const skip = (page - 1) * limit;
+
+        // Build query
+        const query = {};
+        if (searchQuery) {
+            query.$or = [
+                { title: { $regex: searchQuery, $options: 'i' } },
+                { excerpt: { $regex: searchQuery, $options: 'i' } }
+            ];
+        }
+
+        const [blogs, totalCount] = await Promise.all([
+            Blog.find(query)
+                .populate('author', 'name')
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            Blog.countDocuments(query)
+        ]);
+
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return {
+            success: true,
+            blogs: JSON.parse(JSON.stringify(blogs)),
+            currentPage: page,
+            totalPages,
+            totalCount
+        };
+    } catch (error) {
+        console.error('Error fetching admin blogs:', error);
+        return { success: false, error: 'Failed to fetch blogs' };
+    }
+}
+
+// Get all documents for admin with pagination and search
+// export async function getAllDocumentsAdmin(page = 1, limit = 10, searchQuery = '') {
+//     try {
+//         await connectDB();
+
+//         const skip = (page - 1) * limit;
+
+//         // Build query
+//         const query = {};
+//         if (searchQuery) {
+//             query.$or = [
+//                 { title: { $regex: searchQuery, $options: 'i' } },
+//                 { description: { $regex: searchQuery, $options: 'i' } },
+//                 { subject: { $regex: searchQuery, $options: 'i' } }
+//             ];
+//         }
+
+//         const [documents, totalCount] = await Promise.all([
+//             Document.find(query)
+//                 .sort({ createdAt: -1 })
+//                 .skip(skip)
+//                 .limit(limit)
+//                 .lean(),
+//             Document.countDocuments(query)
+//         ]);
+
+//         const totalPages = Math.ceil(totalCount / limit);
+
+//         return {
+//             success: true,
+//             documents: JSON.parse(JSON.stringify(documents)),
+//             currentPage: page,
+//             totalPages,
+//             totalCount
+//         };
+//     } catch (error) {
+//         console.error('Error fetching admin documents:', error);
+//         return { success: false, error: 'Failed to fetch documents' };
+//     }
+// }
+
+// Get all quizzes for admin with pagination and search
+// export async function getAllQuizzesAdmin(page = 1, limit = 10, searchQuery = '') {
+//     try {
+//         await connectDB();
+
+//         const skip = (page - 1) * limit;
+
+//         // Build query
+//         const query = {};
+//         if (searchQuery) {
+//             query.$or = [
+//                 { title: { $regex: searchQuery, $options: 'i' } },
+//                 { description: { $regex: searchQuery, $options: 'i' } },
+//                 { category: { $regex: searchQuery, $options: 'i' } }
+//             ];
+//         }
+
+//         const [quizzes, totalCount] = await Promise.all([
+//             Quiz.find(query)
+//                 .sort({ createdAt: -1 })
+//                 .skip(skip)
+//                 .limit(limit)
+//                 .select('-questions') // Exclude questions array for performance
+//                 .lean(),
+//             Quiz.countDocuments(query)
+//         ]);
+
+//         const totalPages = Math.ceil(totalCount / limit);
+
+//         return {
+//             success: true,
+//             quizzes: JSON.parse(JSON.stringify(quizzes)),
+//             currentPage: page,
+//             totalPages,
+//             totalCount
+//         };
+//     } catch (error) {
+//         console.error('Error fetching admin quizzes:', error);
+//         return { success: false, error: 'Failed to fetch quizzes' };
+//     }
+// }
+
+// Delete blog (hard delete)
+export async function deleteBlogAdmin(id) {
+    try {
+        await connectDB();
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return { success: false, error: 'Invalid blog ID' };
+        }
+
+        const blog = await Blog.findByIdAndDelete(id);
+
+        if (!blog) {
+            return { success: false, error: 'Blog not found' };
+        }
+
+        // Revalidate relevant paths
+        revalidatePath('/blogs');
+        revalidatePath('/');
+        revalidatePath('/admin');
+
+        return {
+            success: true,
+            message: 'Blog deleted successfully'
+        };
+    } catch (error) {
+        console.error('Error deleting blog:', error);
+        return { success: false, error: 'Failed to delete blog' };
+    }
+}
+
+// Delete document (hard delete)
+// export async function deleteDocumentAdmin(id) {
+//     try {
+//         await connectDB();
+
+//         if (!mongoose.Types.ObjectId.isValid(id)) {
+//             return { success: false, error: 'Invalid document ID' };
+//         }
+
+//         const document = await Document.findByIdAndDelete(id);
+
+//         if (!document) {
+//             return { success: false, error: 'Document not found' };
+//         }
+
+//         // Delete associated comments
+//         await Comment.deleteMany({ documentId: id });
+
+//         // Revalidate relevant paths
+//         revalidatePath('/documents');
+//         revalidatePath('/');
+//         revalidatePath('/admin');
+
+//         return {
+//             success: true,
+//             message: 'Document deleted successfully'
+//         };
+//     } catch (error) {
+//         console.error('Error deleting document:', error);
+//         return { success: false, error: 'Failed to delete document' };
+//     }
+// }
+
+// // Delete quiz (hard delete)
+// export async function deleteQuizAdmin(slug) {
+//     try {
+//         await connectDB();
+
+//         const quiz = await Quiz.findOneAndDelete({ slug });
+
+//         if (!quiz) {
+//             return { success: false, error: 'Quiz not found' };
+//         }
+
+//         // Revalidate relevant paths
+//         revalidatePath('/quiz');
+//         revalidatePath('/');
+//         revalidatePath('/admin');
+
+//         return {
+//             success: true,
+//             message: 'Quiz deleted successfully'
+//         };
+//     } catch (error) {
+//         console.error('Error deleting quiz:', error);
+//         return { success: false, error: 'Failed to delete quiz' };
+//     }
+// }

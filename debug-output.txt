@@ -1,0 +1,28 @@
+﻿[dotenv@17.2.3] injecting env (14) from .env.local -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+Connected to DB
+
+=== ALL PUBLISHED SITES ===
+  title: "11th Class (1st year) Smart Syllabus 2025-26 PDF | All Punjab Boards Official"
+  board: "punjab-board"  level: "inter"  class: "11th"  slug: "11th-class-smart-syllabus"
+  ---
+  title: "test"
+  board: "punjab-board"  level: "matric"  class: "11th"  slug: "tftctg"
+  ---
+  title: "10th Class Computer Science Practical Book PDF"
+  board: "punjab-board"  level: "matric"  class: "10th"  slug: "10th-class-computer-science-practical-book-pdf"
+  ---
+  title: "Download 11th Class Islamiyat Text Book for Punjab Board"
+  board: "punjab-board"  level: "inter"  class: "11th"  slug: "islamiyat-textbook-pdf"
+  ---
+
+=== SEARCH BY SLUG "11th-class-smart-syllabus" ===
+{
+  "board": "punjab-board",
+  "level": "inter",
+  "class": "11th",
+  "slug": "11th-class-smart-syllabus",
+  "published": true
+}
+
+=== REGEX QUERY RESULT ===
+FOUND: 11th Class (1st year) Smart Syllabus 2025-26 PDF | All Punjab Boards Official
