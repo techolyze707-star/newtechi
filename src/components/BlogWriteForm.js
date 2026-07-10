@@ -224,9 +224,9 @@ export default function BlogWriteForm() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+   <div className="max-w-4xl mx-auto">
       {isLoadingData && (
-        <div className="mb-6 p-4 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-3">
+        <div className="mb-6 p-4 rounded-lg bg-blue-950/40 text-blue-400 border border-blue-900/40 flex items-center gap-3">
           <Loader2 className="h-5 w-5 animate-spin" />
           <span className="font-medium">Loading blog data...</span>
         </div>
@@ -234,14 +234,14 @@ export default function BlogWriteForm() {
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          <div className="bg-red-950/40 border border-red-900/50 text-red-400 px-4 py-3 rounded-lg text-sm">
             {error}
           </div>
         )}
 
         {/* Title */}
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-2">
             Blog Title *
           </label>
           <input
@@ -249,7 +249,7 @@ export default function BlogWriteForm() {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-950 text-slate-200 placeholder-slate-600 focus:outline-none transition-all duration-200"
             placeholder="Enter your blog title..."
             required
           />
@@ -257,7 +257,7 @@ export default function BlogWriteForm() {
 
         {/* Excerpt */}
         <div>
-          <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="excerpt" className="block text-sm font-medium text-slate-300 mb-2">
             Excerpt *
           </label>
           <textarea
@@ -266,18 +266,18 @@ export default function BlogWriteForm() {
             onChange={(e) => setExcerpt(e.target.value)}
             rows={3}
             maxLength={300}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-950 text-slate-200 placeholder-slate-600 focus:outline-none resize-none transition-all duration-200"
             placeholder="Write a brief description of your blog post (max 300 characters)..."
             required
           />
-          <div className="text-right text-sm text-gray-500 mt-1">
+          <div className="text-right text-sm text-slate-500 mt-1">
             {excerpt.length}/300
           </div>
         </div>
 
         {/* Author Selection */}
         <div>
-          <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="author" className="block text-sm font-medium text-slate-300 mb-2">
             Author *
           </label>
           <div className="relative">
@@ -285,22 +285,22 @@ export default function BlogWriteForm() {
               id="author"
               value={selectedAuthor}
               onChange={(e) => setSelectedAuthor(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
+              className="w-full px-4 py-3 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-slate-950 text-slate-200 focus:outline-none transition-all duration-200"
               required
             >
-              <option value="">Select an author...</option>
+              <option value="" className="bg-slate-950 text-slate-500">Select an author...</option>
               {authors.map((author) => (
-                <option key={author._id} value={author._id}>
+                <option key={author._id} value={author._id} className="bg-slate-950 text-slate-200">
                   {author.name}
                 </option>
               ))}
             </select>
-            <User className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+            <User className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-500 pointer-events-none" />
           </div>
 
           {/* Author Preview */}
           {selectedAuthor && (
-            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+            <div className="mt-3 p-4 bg-slate-950/60 border border-slate-900 rounded-lg">
               {(() => {
                 const author = authors.find(a => a._id === selectedAuthor);
                 return author ? (
@@ -308,11 +308,11 @@ export default function BlogWriteForm() {
                     <img
                       src={author.avatar}
                       alt={author.name}
-                      className="w-10 h-10 rounded-full object-cover"
+                      className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-800"
                     />
                     <div>
-                      <div className="font-medium text-gray-900">{author.name}</div>
-                      <div className="text-sm text-gray-600 line-clamp-2">{author.bio}</div>
+                      <div className="font-medium text-slate-200">{author.name}</div>
+                      <div className="text-sm text-slate-400 line-clamp-2">{author.bio}</div>
                     </div>
                   </div>
                 ) : null;
@@ -323,15 +323,15 @@ export default function BlogWriteForm() {
 
         {/* Cover Image */}
         <div>
-          <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="coverImage" className="block text-sm font-medium text-slate-300 mb-2">
             Cover Image *
           </label>
           <div className="space-y-4">
             {/* Upload Button */}
             <div className="flex items-center space-x-4">
               <label className={`flex items-center space-x-2 px-4 py-2 rounded-lg cursor-pointer transition-colors ${isUploading
-                ? 'bg-gray-100 cursor-not-allowed'
-                : 'bg-blue-100 hover:bg-blue-200 text-blue-700'
+                ? 'bg-slate-900 text-slate-600 cursor-not-allowed border border-slate-800'
+                : 'bg-blue-950/50 hover:bg-blue-900/60 text-blue-400 border border-blue-900/30'
                 }`}>
                 {isUploading ? (
                   <>
@@ -352,7 +352,7 @@ export default function BlogWriteForm() {
                   disabled={isUploading}
                 />
               </label>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-slate-500">
                 Max 5MB (JPG, PNG, WebP)
               </span>
             </div>
@@ -360,16 +360,16 @@ export default function BlogWriteForm() {
             {/* Image Preview with Alt Text */}
             {coverImage.url && (
               <div className="space-y-3">
-                <div className="relative h-48 w-full rounded-lg overflow-hidden border border-gray-200">
+                <div className="relative h-48 w-full rounded-lg overflow-hidden border border-slate-800 bg-slate-950">
                   <img
                     src={coverImage.url}
                     alt={coverImage.alt || 'Cover preview'}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover opacity-90"
                   />
                   <button
                     type="button"
                     onClick={handleRemoveImage}
-                    className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors"
+                    className="absolute top-2 right-2 p-1.5 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors shadow-md"
                     aria-label="Remove image"
                   >
                     <X className="h-4 w-4" />
@@ -378,7 +378,7 @@ export default function BlogWriteForm() {
 
                 {/* Alt Text Input */}
                 <div>
-                  <label htmlFor="imageAlt" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="imageAlt" className="block text-sm font-medium text-slate-300 mb-2">
                     Image Alt Text (for accessibility) *
                   </label>
                   <input
@@ -386,17 +386,17 @@ export default function BlogWriteForm() {
                     type="text"
                     value={coverImage.alt}
                     onChange={(e) => setCoverImage({ ...coverImage, alt: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-950 text-slate-200 placeholder-slate-600 focus:outline-none transition-all duration-200"
                     placeholder="Describe the image (e.g., 'JavaScript code on laptop screen')"
                     required
                   />
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-slate-500">
                     Describe what's in the image for screen readers and SEO
                   </p>
                 </div>
 
                 {/* Image Metadata */}
-                <div className="text-xs text-gray-500 space-y-1">
+                <div className="text-xs text-slate-500 space-y-1">
                   <p>Dimensions: {coverImage.width} × {coverImage.height}px</p>
                   <p>Uploaded to Cloudinary</p>
                 </div>
@@ -407,12 +407,12 @@ export default function BlogWriteForm() {
 
         {/* Blog Content */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-slate-300 mb-2">
             Content *
           </label>
           <BlogEditor
-            className="prose sm:prose-lg
-                    prose-a:text-purple-500 hover:prose-a:underline
+            className="prose prose-invert sm:prose-lg
+                    prose-a:text-purple-400 hover:prose-a:underline
                     prose-quote:border-purple-500
                     prose-ul:list-disc 
                     max-w-none overflow-hidden"
@@ -427,7 +427,7 @@ export default function BlogWriteForm() {
           <button
             type="submit"
             disabled={isSubmitting || isLoadingData}
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors inline-flex items-center space-x-2"
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors inline-flex items-center space-x-2 shadow-lg shadow-blue-600/10 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
           >
             {isSubmitting ? (
               <>
