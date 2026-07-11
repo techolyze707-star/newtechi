@@ -121,3 +121,107 @@ export async function createAuthor(authorData) {
     return { success: false, error: 'Failed to create author' };
   }
 }
+
+// Get all authors (including inactive ones) for admin dashboard
+export async function getAuthorsAdmin() {
+  try {
+    await connectDB();
+
+    const authors = await Author.find({})
+      .sort({ name: 1 })
+      .lean();
+
+    return {
+      success: true,
+      authors: JSON.parse(JSON.stringify(authors))
+    };
+  } catch (error) {
+    console.error('Error fetching admin authors:', error);
+    return { success: false, error: 'Failed to fetch authors' };
+  }
+}
+
+// Update an existing author
+export async function updateAuthor(id, authorData) {
+  try {
+    await connectDB();
+
+    const { name, bio, avatar, email, social = {}, isActive } = authorData;
+
+    if (!name || !bio || !avatar || !email) {
+      return { success: false, error: 'Name, bio, avatar, and email are required' };
+    }
+
+    const author = await Author.findById(id);
+    if (!author) {
+      return { success: false, error: 'Author not found' };
+    }
+
+    // Check if email has changed and if the new email is already taken
+    if (author.email !== email) {
+      const existingEmail = await Author.findOne({ email, _id: { $ne: id } });
+      if (existingEmail) {
+        return { success: false, error: 'Author with this email already exists' };
+      }
+    }
+
+    // Update slug if name changed
+    if (author.name !== name) {
+      let baseSlug = generateSlug(name);
+      let slug = baseSlug;
+      let counter = 1;
+
+      while (await Author.findOne({ slug, _id: { $ne: id } })) {
+        slug = `${baseSlug}-${counter}`;
+        counter++;
+      }
+      author.slug = slug;
+    }
+
+    author.name = name;
+    author.bio = bio;
+    author.avatar = avatar;
+    author.email = email;
+    author.social = social;
+    if (isActive !== undefined) {
+      author.isActive = isActive;
+    }
+
+    await author.save();
+
+    return {
+      success: true,
+      author: JSON.parse(JSON.stringify(author)),
+      message: 'Author updated successfully!'
+    };
+  } catch (error) {
+    console.error('Error updating author:', error);
+    if (error.code === 11000) {
+      return { success: false, error: 'Author with this email already exists' };
+    }
+    return { success: false, error: 'Failed to update author' };
+  }
+}
+
+// Delete an author (soft delete by setting isActive to false)
+export async function deleteAuthor(id) {
+  try {
+    await connectDB();
+
+    const author = await Author.findById(id);
+    if (!author) {
+      return { success: false, error: 'Author not found' };
+    }
+
+    author.isActive = false;
+    await author.save();
+
+    return {
+      success: true,
+      message: 'Author deactivated successfully!'
+    };
+  } catch (error) {
+    console.error('Error deleting author:', error);
+    return { success: false, error: 'Failed to delete author' };
+  }
+}

@@ -9,11 +9,13 @@ import {
     generateDocumentStructuredData,
     generateWebsiteStructuredData,
 } from '@/lib/seo-utils';
+import Image from 'next/image';
+import { formatDate } from '@/lib/utils';
 
 export default async function BlogsPageNumber({ params }) {
     const { pageNumber } = await params;
     const page = parseInt(pageNumber) || 1;
-    const result = await getBlogs(page, 12);
+    const result = await getBlogs(page, 17);
 
     const { blogs = [], pagination = {} } = result.success
         ? result
@@ -32,8 +34,11 @@ export default async function BlogsPageNumber({ params }) {
         tags: blog.tags || ['General'],
     }));
 
+    const middleBlogs = page === 1 ? blogs.slice(3, 12) : blogs.slice(0, 12);
+    const sidebarBlogs = blogs.slice(12, 17);
+
   return (
-    <div className="min-h-screen bg-[#171717] overflow-hidden relative">
+    <div className="min-h-screen bg-[#171717] relative">
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"
@@ -168,7 +173,7 @@ export default async function BlogsPageNumber({ params }) {
         )}
 
         {/* Latest Posts Section */}
-        <section className="relative py-20 overflow-hidden">
+        <section className="relative py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header with Liquid Badge */}
                 <div className="flex items-center justify-between mb-12">
@@ -192,10 +197,36 @@ export default async function BlogsPageNumber({ params }) {
                 {/* Content */}
                 <>
                     {/* Blog Grid */}
-                    <div className="flex flex-col gap-6">
-                        {(page === 1 ? blogs.slice(3) : blogs).map((blog) => (
-                            <BlogCard key={blog._id} blog={blog} />
-                        ))}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+                        {/* Middle Feed */}
+                        <div className="lg:col-span-2 flex flex-col gap-6">
+                            {middleBlogs.map((blog) => (
+                                <BlogCard key={blog._id} blog={blog} />
+                            ))}
+                        </div>
+
+                        {/* Side Feed */}
+                        {sidebarBlogs.length > 0 && (
+                            <div className="lg:col-span-1 lg:sticky lg:top-24 space-y-6">
+                                <div className="py-6">
+                                    <h3 className="text-xl md:text-2xl font-semibold mb-6 relative pb-3 text-white after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-[3px] after:bg-gradient-to-r after:from-yellow-500 after:to-yellow-500">
+                                        Latest
+                                    </h3>
+                                    <div className="flex flex-col gap-4">
+                                        {sidebarBlogs.map((blog) => (
+                                            <BlogCardVergeStyle
+                                                key={blog._id}
+                                                slug={blog.slug}
+                                                title={blog.title}
+                                                imageUrl={blog.coverImage?.url}
+                                                time={formatDate(blog.createdAt)}
+                                                author={blog.author?.name || (typeof blog.author === 'string' ? blog.author : 'Anonymous')}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Pagination */}
@@ -212,9 +243,9 @@ export default async function BlogsPageNumber({ params }) {
 );
 }
 
-// Generate static params for all blog pages
+// Generate dynamic static params for all blog pages
 export async function generateStaticParams() {
-    const result = await getBlogs(1, 12);
+    const result = await getBlogs(1, 17);
 
     if (!result.success || !result.pagination) {
         return [{ pageNumber: '1' }];
@@ -273,3 +304,31 @@ export async function generateMetadata({ params }) {
 
 export const dynamic = 'force-static';
 export const revalidate = false; // Never revalidate automatically
+
+function BlogCardVergeStyle({ slug, title, imageUrl, time, author }) {
+  return (
+    <Link href={`/blogs/${slug}`} className="group flex gap-4 items-start py-3 border-b border-zinc-800/60 last:border-none last:pb-0">
+      {imageUrl && (
+        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-zinc-800">
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            sizes="80px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      )}
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-bold text-neutral-200 group-hover:text-yellow-400 transition-colors line-clamp-2 leading-snug">
+          {title}
+        </h4>
+        <div className="flex items-center gap-2 mt-2 text-[11px] text-zinc-500">
+          <span className="uppercase font-medium text-zinc-400">{author}</span>
+          <span>•</span>
+          <span>{time}</span>
+        </div>
+      </div>
+    </Link>
+  );
+}

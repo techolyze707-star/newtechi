@@ -194,7 +194,7 @@ export async function getLatestBlogs(limit = 6) {
 }
 
 // Get blogs by author slug
-export async function getBlogsByAuthor(authorSlug) {
+export async function getBlogsByAuthor(authorSlug, page = 1, limit = 6) {
   try {
     await connectDB();
 
@@ -205,16 +205,32 @@ export async function getBlogsByAuthor(authorSlug) {
       return { success: false, error: 'Author not found' };
     }
 
-    // Then find all published blogs by this author
-    const blogs = await Blog.find({ author: author._id, published: true })
-      .select('title slug excerpt coverImage createdAt author')
-      .populate('author', 'name slug avatar')
-      .sort({ createdAt: -1, _id: 1 })
-      .lean();
+    const skip = (page - 1) * limit;
+
+    // Then find published blogs by this author with pagination
+    const [blogs, totalCount] = await Promise.all([
+      Blog.find({ author: author._id, published: true })
+        .select('title slug excerpt coverImage createdAt author')
+        .populate('author', 'name slug avatar')
+        .sort({ createdAt: -1, _id: 1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Blog.countDocuments({ author: author._id, published: true })
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit);
+    const hasMore = page < totalPages;
 
     return {
       success: true,
-      blogs: JSON.parse(JSON.stringify(blogs))
+      blogs: JSON.parse(JSON.stringify(blogs)),
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        hasMore
+      }
     };
   } catch (error) {
     console.error('Error fetching blogs by author:', error);

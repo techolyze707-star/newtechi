@@ -1,5 +1,5 @@
 # robots.txt for Techolyze
-# https://Techolyze.dev/robots.txt
+# https://techolyze.com/robots.txt
 # Last updated: October 2025
 
 # Default crawl rules for all bots
@@ -142,10 +142,10 @@ Disallow: /api/
 Disallow: /admin/
 
 # Sitemaps
-Sitemap: https://Techolyze.dev/sitemap.xml
+Sitemap: https://techolyze.com/sitemap.xml
 
 # Host
-Host: https://Techolyze.dev
+Host: https://techolyze.com
 
 # Additional information for AI/LLM crawlers
-# For detailed AI/LLM access information, see: https://Techolyze.dev/llms.txt
+# For detailed AI/LLM access information, see: https://techolyze.com/llms.txt

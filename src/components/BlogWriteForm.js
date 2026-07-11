@@ -23,8 +23,8 @@ const sanitizeContentLinks = (htmlContent) => {
       const href = link.getAttribute('href');
       if (!href) return;
 
-      // Check if internal link (relative path or Techolyze.dev domain)
-      const isInternal = href.startsWith('/') || href.includes('Techolyze.dev');
+      // Check if internal link (relative path or techolyze.com domain)
+      const isInternal = href.startsWith('/') || href.includes('techolyze.com');
 
       if (isInternal) {
         const rel = link.getAttribute('rel');
@@ -224,7 +224,7 @@ export default function BlogWriteForm() {
   };
 
   return (
-   <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {isLoadingData && (
         <div className="mb-6 p-4 rounded-lg bg-blue-950/40 text-blue-400 border border-blue-900/40 flex items-center gap-3">
           <Loader2 className="h-5 w-5 animate-spin" />

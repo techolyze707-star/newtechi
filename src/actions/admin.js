@@ -35,27 +35,15 @@ export async function getAdminStats() {
 
             const [
                 totalBlogs,
-                // totalDocuments,
-                // totalSites,
-                // totalQuizzes,
-                // totalFeedback,
-                // totalComments
+                totalAuthors,
             ] = await Promise.all([
                 Blog.countDocuments({}),
-                // Document.countDocuments({}),
-                // Site.countDocuments({}),
-                // Quiz.countDocuments({}),
-                // Feedback.countDocuments({}),
-                // Comment.countDocuments({ status: 'visible' })
+                Author.countDocuments({ isActive: true })
             ]);
 
             return {
                 blogs: totalBlogs,
-                // documents: totalDocuments,
-                // sites: totalSites,
-                // quizzes: totalQuizzes,
-                // feedback: totalFeedback,
-                // comments: totalComments
+                authors: totalAuthors,
             };
         })();
 
@@ -72,11 +60,7 @@ export async function getAdminStats() {
             error: error.message || 'Failed to fetch statistics',
             stats: {
                 blogs: 0,
-                // documents: 0,
-                // sites: 0,
-                // quizzes: 0,
-                // feedback: 0,
-                // comments: 0
+                authors: 0,
             }
         };
     }

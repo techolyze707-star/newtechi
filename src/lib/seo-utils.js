@@ -21,7 +21,7 @@ export function generateDocumentMetadata({
   modifiedTime,
   author = 'Techolyze Team'
 }) {
-  const baseUrl = 'https://Techolyze.dev';
+  const baseUrl = 'https://techolyze.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
   const canonicalUrl = canonical || fullUrl;
 
@@ -106,7 +106,7 @@ export function generateDocumentStructuredData({
   dateModified,
   image
 }) {
-  const baseUrl =  'https://Techolyze.dev';
+  const baseUrl =  'https://techolyze.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
 
   const structuredData = {
@@ -139,11 +139,10 @@ export function generateDocumentStructuredData({
         '@type': 'ListItem',
         position: index + 1,
         item: {
-          '@type': 'EducationalResource',
+          '@type': item.type || 'BlogPosting',
           name: item.title,
           description: item.description,
           url: `${baseUrl}${item.url}`,
-          learningResourceType: item.type || 'Document',
           about: item.subject,
         },
       })),
@@ -190,19 +189,19 @@ export function generateDocumentStructuredData({
  * @returns {Object} Website JSON-LD structured data
  */
 export function generateWebsiteStructuredData() {
-  const baseUrl =  'https://Techolyze.dev';
+  const baseUrl =  'https://techolyze.com';
 
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Techolyze',
-    description: 'Free educational documents, notes, books, and study materials for students',
+    description: 'Global AI & Technology Blog delivering deep-dive tech tutorials and secure browser utilities',
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${baseUrl}/documents?search={search_term_string}`,
+        urlTemplate: `${baseUrl}/blogs?search={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -228,20 +227,20 @@ export function generateWebsiteStructuredData() {
  * @returns {Object} Organization JSON-LD structured data
  */
 export function generateOrganizationStructuredData() {
-  const baseUrl =  'https://Techolyze.dev';
+  const baseUrl =  'https://techolyze.com';
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Techolyze',
-    alternateName: 'Doc Library',
+    alternateName: 'Techolyze',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
-    description: 'Educational platform providing free documents and study materials',
+    description: 'Global technology publication offering AI model analysis, developer guides, and secure file converters',
     contactPoint: {
       '@type': 'ContactPoint',
-      contactType: 'Customer Service',
-      email: 'team@Techolyze.dev',
+      contactType: 'Customer Support',
+      email: 'team@techolyze.com',
       availableLanguage: 'English',
     },
     sameAs: [
@@ -310,7 +309,7 @@ export function formatSEODate(date) {
  * @returns {string} Full canonical URL
  */
 export function generateCanonicalUrl(path) {
-  const baseUrl =  'https://Techolyze.dev';
+  const baseUrl =  'https://techolyze.com';
   return `${baseUrl}${path}`;
 }
 

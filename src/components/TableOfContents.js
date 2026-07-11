@@ -54,7 +54,7 @@ export default function TableOfContents({ toc }) {
             <div className="lg:hidden mb-8 border rounded-lg overflow-hidden bg-zinc-900 border-zinc-800">
                 <button
                     onClick={() => setIsMobileOpen(!isMobileOpen)}
-                    className="w-full flex items-center justify-between p-4 font-medium text-white/90 bg-zinc-900 hover:text-yellow-400 transition-colors"
+                    className="w-full flex items-center justify-between p-4 font-medium text-zinc-300 bg-zinc-900 hover:text-yellow-400 transition-colors"
                     aria-expanded={isMobileOpen}
                 >
                     <span className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function TableOfContents({ toc }) {
                                         onClick={(e) => handleClick(e, item.id)}
                                         className={`block text-sm transition-colors ${activeId === item.id
                                             ? 'text-yellow-400 font-medium'
-                                            : 'text-white hover:text-yellow-400'
+                                            : 'text-zinc-400 hover:text-yellow-400'
                                             }`}
                                     >
                                         {item.text}
@@ -120,7 +120,7 @@ export default function TableOfContents({ toc }) {
                                 onClick={(e) => handleClick(e, item.id)}
                                 className={`block pl-4 text-sm transition-all duration-200 ${activeId === item.id
                                     ? 'text-yellow-400 font-medium translate-x-1'
-                                    : 'text-white hover:text-yellow-400 hover:translate-x-1'
+                                    : 'text-zinc-400 hover:text-yellow-400 hover:translate-x-1'
                                     } ${item.level === 3 ? 'ml-2 text-xs' : ''}`}
                             >
                                 {item.text}

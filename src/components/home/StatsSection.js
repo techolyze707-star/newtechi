@@ -1,39 +1,43 @@
 import Image from "next/image";
 import React from "react";
 
-export const Separator = () => {
+export const Separator = ({ theme }) => {
+  const bgClass = theme === 'dark' ? "bg-neutral-800" : "bg-neutral-200 dark:bg-neutral-800";
   return (
-    <div className="w-px self-stretch mx-8 max-sm:mx-0 bg-neutral-200 dark:bg-neutral-800 max-sm:w-full max-sm:h-px max-sm:self-auto" />
+    <div className={`w-px self-stretch mx-8 max-sm:mx-0 ${bgClass} max-sm:w-full max-sm:h-px max-sm:self-auto`} />
   );
 };
 
-const StatsSection = () => {
+const StatsSection = ({ theme }) => {
   const statsData = [
     {
       iconType: "/assets/news.svg",
       title: "Latest News Updates",
       subtitle: "Stay Current",
-      description: "Over 1,000 articles published monthly",
+      description: "Over 1,00 articles published monthly",
       href: "/news",
     },
     {
       iconType: "/assets/expert.svg",
       title: "Expert Contributors",
       subtitle: "Trusted Insights",
-      description: "50+ renowned AI experts on our team",
+      description: "5+ renowned AI experts on our team",
       href: "/experts",
     },
     {
       iconType: "/assets/global.svg",
       title: "Global Readership",
       subtitle: "Worldwide Impact",
-      description: "2 million monthly readers",
+      description: "100k monthly readers",
       href: "/global",
     },
   ];
 
+  const isDark = theme === 'dark';
+  const borderClass = isDark ? "border-t border-neutral-800" : "border-t border-neutral-200 dark:border-neutral-800";
+
   return (
-    <section className="border-t border-neutral-200 dark:border-neutral-800">
+    <section className={borderClass}>
       <section className="flex relative items-start g-px w-full max-sm:flex-col">
         {statsData.map((stat, index) => (
           <React.Fragment key={index}>
@@ -42,8 +46,9 @@ const StatsSection = () => {
               title={stat.title}
               subtitle={stat.subtitle}
               description={stat.description}
+              theme={theme}
             />
-            {index < statsData.length - 1 && <Separator />}
+            {index < statsData.length - 1 && <Separator theme={theme} />}
           </React.Fragment>
         ))}
       </section>
@@ -53,7 +58,12 @@ const StatsSection = () => {
 
 export default StatsSection;
 
-const StatCard = ({ iconType, title, subtitle, description }) => {
+const StatCard = ({ iconType, title, subtitle, description, theme }) => {
+  const isDark = theme === 'dark';
+  const titleClass = isDark ? "text-white" : "text-gray-900 dark:text-white";
+  const subtitleClass = isDark ? "text-yellow-400" : "text-gray-600 dark:text-zinc-500";
+  const descClass = isDark ? "text-gray-300" : "text-gray-700 dark:text-gray-300";
+
   const ArrowButton = ({ onClick, className = "" }) => (
     <button
       onClick={onClick}
@@ -87,22 +97,22 @@ const StatCard = ({ iconType, title, subtitle, description }) => {
             width={50}
             height={50}
             alt="icon"
-            className="w-[50px] max-sm:w-[40px] h-[50px] max-sm:h-[40px] relative"
+            className={`w-[50px] max-sm:w-[40px] h-[50px] max-sm:h-[40px] relative ${isDark ? 'brightness-125' : ''}`}
           />
         </div>
         <div className="flex relative gap-5 items-center w-full max-sm:gap-4">
           <div className="flex relative flex-col flex-1 gap-1 items-start">
-            <h3 className="relative w-full text-xl tracking-tight leading-8 text-gray-900 dark:text-white max-md:text-lg max-sm:text-base max-sm:tracking-tight">
+            <h3 className={`relative w-full text-xl tracking-tight leading-8 ${titleClass} max-md:text-lg max-sm:text-base max-sm:tracking-tight`}>
               {title}
             </h3>
-            <p className="relative w-full text-lg tracking-tight leading-7 text-gray-600 dark:text-zinc-500 max-md:text-base max-sm:text-sm max-sm:tracking-tight">
+            <p className={`relative w-full text-lg tracking-tight leading-7 ${subtitleClass} max-md:text-base max-sm:text-sm max-sm:tracking-tight`}>
               {subtitle}
             </p>
           </div>
           <ArrowButton />
         </div>
       </div>
-      <p className="relative w-full text-xl tracking-tight leading-8 text-gray-700 dark:text-gray-300 max-md:text-lg max-sm:text-base max-sm:tracking-tight">
+      <p className={`relative w-full text-xl tracking-tight leading-8 ${descClass} max-md:text-lg max-sm:text-base max-sm:tracking-tight`}>
         {description}
       </p>
     </article>

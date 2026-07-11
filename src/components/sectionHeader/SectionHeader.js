@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const SectionHeader = ({ badge, heading, buttonText }) => {
   return (
     <section className="flex gap-52 items-center py-12 w-full border border-neutral-200 dark:bg-zinc-900 dark:border-neutral-800 max-md:gap-24 max-sm:flex-col max-sm:gap-10 max-sm:py-4">
-      <div className="flex flex-col g-px flex-1 gap-4 justify-center items-start max-sm:w-full">
+      <div className="max-w-6xl mx-auto flex flex-col g-px flex-1 gap-4 justify-center items-start max-sm:w-full">
         {badge && <Badge>{badge}</Badge>}
 
         <div className="flex justify-between items-center w-full gap-4 flex-wrap">

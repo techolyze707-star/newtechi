@@ -7,25 +7,27 @@ import NewsLetter from '@/components/newsletter';
 import SectionHeader from '@/components/sectionHeader/SectionHeader';
 import NewsHero from '@/components/NewsHero';
 import { getCoverImageData } from '@/lib/blog-utils';
+import StatsSection from '@/components/home/StatsSection';
+import FutureTechSection from '@/components/home/techFeatureSection/FutureTechSection';
 
 export default async function Home() {
-  const blogsResult = await getLatestBlogs(6);
+  const blogsResult = await getLatestBlogs(20);
   const { blogs } = blogsResult.success ? blogsResult : { blogs: [] };
 
   // Extract the first blog as the high-visibility Featured Post
   const featuredBlog = blogs[0];
-  
+
   // Distribute the remaining items dynamically across the lists below
-  const mainFeedBlogs = blogs.slice(1, 4); 
-  const sidebarBlogs = blogs.slice(4, 6);
+  const mainFeedBlogs = blogs.slice(1, 14);
+  const sidebarBlogs = blogs.slice(14, 18);
   const coverImageData = getCoverImageData(featuredBlog.coverImage);
 
   return (
-    <div className="bg-[#171717] min-h-screen overflow-hidden text-white">
+    <div className="bg-[#171717] min-h-screen text-white">
       {/* Latest Blogs Section */}
-      <section className="relative py-16 md:py-20 overflow-hidden">
+      <section className="relative py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Header Hero */}
           <NewsHero />
 
@@ -38,7 +40,7 @@ export default async function Home() {
                   Featured Publication
                 </span>
               </div>
-              <FeaturedCard 
+              <FeaturedCard
                 slug={featuredBlog.slug || featuredBlog._id}
                 type={featuredBlog.type || "tech"}
                 image={featuredBlog.coverImage || featuredBlog.coverImage}
@@ -53,10 +55,12 @@ export default async function Home() {
             </div>
           )}
 
+
+
           {/* Core Content Grid */}
           {blogs.length > 1 && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start mb-16">
-              
+
               {/* Left Column: Latest Feed Grid */}
               <div className="lg:col-span-2 flex flex-col gap-8">
                 <div className="border-b border-neutral-800 pb-3">
@@ -73,7 +77,7 @@ export default async function Home() {
 
               {/* Right Column: Mini Sidebar Feed */}
               {sidebarBlogs.length > 0 && (
-                <div className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-2xl flex flex-col gap-6">
+                <div className="lg:sticky lg:top-24 bg-neutral-900/50 border border-neutral-800 p-6 rounded-2xl flex flex-col gap-6">
                   <div className="border-b border-neutral-800 pb-3">
                     <h2 className="text-xs font-bold tracking-wider uppercase text-yellow-400">
                       Trending Now
@@ -81,8 +85,8 @@ export default async function Home() {
                   </div>
                   <div className="flex flex-col gap-4">
                     {sidebarBlogs.map((blog) => (
-                      <Link 
-                        key={blog._id} 
+                      <Link
+                        key={blog._id}
                         href={`/blogs/${blog.slug || blog._id}`}
                         className="group flex flex-col gap-1 py-2 border-b border-neutral-800/60 last:border-none last:pb-0"
                       >
@@ -106,15 +110,20 @@ export default async function Home() {
           )}
 
         </div>
+        <SectionHeader
+          heading={"Future Technology Blog"}
+          badge={"FutureTech Features"}
+        />
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <FutureTechSection />
+        </div>
+
 
         {/* Section Footer & Newsletter */}
-        {/* <SectionHeader 
-          heading={"Insights and knowledge from our community"} 
-          badge={"INSIGHTS"} 
-          buttonText={"View All"} 
-        /> */}
+        {/* Statistics Section */}
         <NewsLetter />
       </section>
+
     </div>
   );
 }

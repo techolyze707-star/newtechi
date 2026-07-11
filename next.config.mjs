@@ -6,6 +6,16 @@ const nextConfig = {
   // Skip trailing slash redirect for specific paths if needed
   skipTrailingSlashRedirect: false,
 
+  async redirects() {
+    return [
+      {
+        source: '/open/blog/:slug',
+        destination: '/blogs/:slug',
+        permanent: true,
+      },
+    ];
+  },
+
   // Experimental features for performance
   experimental: {
     scrollRestoration: true,

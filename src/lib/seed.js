@@ -22,7 +22,7 @@ const authorsData = [
     slug: 'zain-khokhar',
     bio: 'Passionate developer and content writer specializing in web technologies and AI.',
     avatar: 'https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp',
-    email: 'zain@Techolyze.dev',
+    email: 'zain@techolyze.com',
     social: { twitter: '', linkedin: '', website: '' },
     isActive: true
   },
@@ -32,7 +32,7 @@ const authorsData = [
     slug: 'max-reed',
     bio: 'Senior software engineer and tech enthusiast sharing insights on software engineering and system architecture.',
     avatar: 'https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp',
-    email: 'max@Techolyze.dev',
+    email: 'max@techolyze.com',
     social: { twitter: '', linkedin: '', website: '' },
     isActive: true
   },
@@ -42,7 +42,7 @@ const authorsData = [
     slug: 'mr-osman',
     bio: 'Experienced writer focusing on tools, productivity, and full-stack development.',
     avatar: 'https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp',
-    email: 'osman@Techolyze.dev',
+    email: 'osman@techolyze.com',
     social: { twitter: '', linkedin: '', website: '' },
     isActive: true
   },
@@ -52,7 +52,7 @@ const authorsData = [
     slug: 'md-zawyar',
     bio: 'Tech writer and developer exploring next-gen frontend frameworks and developer workflows.',
     avatar: 'https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp',
-    email: 'zawyar@Techolyze.dev',
+    email: 'zawyar@techolyze.com',
     social: { twitter: '', linkedin: '', website: '' },
     isActive: true
   },
@@ -62,7 +62,7 @@ const authorsData = [
     slug: 'naylon-saeer',
     bio: 'Specialist in no-code app builders, visual coding platforms, and digital transformation.',
     avatar: 'https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp',
-    email: 'naylon@Techolyze.dev',
+    email: 'naylon@techolyze.com',
     social: { twitter: '', linkedin: '', website: '' },
     isActive: true
   }

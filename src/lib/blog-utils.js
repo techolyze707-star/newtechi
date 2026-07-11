@@ -89,7 +89,7 @@ export function getCoverImageData(coverImage) {
  * @returns {Object} Next.js metadata object
  */
 export function generateBlogMetadata(blog, slug) {
-  const baseUrl = 'https://Techolyze.dev';
+  const baseUrl = 'https://techolyze.com';
   const url = `${baseUrl}/blogs/${slug}`;
 
   // Extract plain text excerpt from content
@@ -174,7 +174,7 @@ export function generateBlogMetadata(blog, slug) {
  * @returns {Object} JSON-LD structured data
  */
 export function generateBlogStructuredData(blog, readingTime) {
-  const baseUrl = 'https://Techolyze.dev';
+  const baseUrl = 'https://techolyze.com';
   const plainTextContent = extractPlainText(blog.content);
   const excerpt = blog.excerpt || generateExcerpt(plainTextContent);
   const wordCount = getWordCount(blog.content);

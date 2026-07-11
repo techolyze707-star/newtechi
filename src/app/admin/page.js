@@ -13,11 +13,13 @@ import {
   FileText,
   Zap,
   MessageCircle,
-  BookOpen
+  BookOpen,
+  User
 } from 'lucide-react';
 // import FeedbackManagement from '@/components/FeedbackManagement';
 // import CommentManagement from '@/components/CommentManagement';
 import BlogManagement from '@/components/BlogManagement';
+import AuthorManagement from '@/components/AuthorManagement';
 // import DocumentManagement from '@/components/DocumentManagement';
 // import QuizManagement from '@/components/QuizManagement';
 // import SiteManagement from '@/components/SiteManagement';
@@ -29,11 +31,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [stats, setStats] = useState({
     blogs: 0,
-    // documents: 0,
-    // sites: 0,
-    // quizzes: 0,
-    // feedback: 0,
-    // comments: 0
+    authors: 0,
   });
 
   useEffect(() => {
@@ -110,6 +108,13 @@ export default function AdminDashboard() {
       icon: FileText,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
+    },
+    {
+      title: 'Total Authors',
+      value: stats.authors,
+      icon: User,
+      color: 'text-indigo-600',
+      bgColor: 'bg-indigo-50'
     },
     // {
     //   title: 'Documents',
@@ -189,6 +194,15 @@ export default function AdminDashboard() {
                     }`}
                 >
                   Blogs
+                </button>
+                <button
+                  onClick={() => setActiveTab('authors')}
+                  className={`px-3 py-2 rounded-lg transition-colors whitespace-nowrap text-sm ${activeTab === 'authors'
+                    ? 'bg-indigo-100 text-indigo-700'
+                    : 'text-gray-500 hover:text-gray-700'
+                    }`}
+                >
+                  Authors
                 </button>
                 {/* <button
                   onClick={() => setActiveTab('documents')}
@@ -310,6 +324,8 @@ export default function AdminDashboard() {
             </>
           ) : activeTab === 'blogs' ? (
             <BlogManagement />
+          ) : activeTab === 'authors' ? (
+            <AuthorManagement />
           ) : activeTab === 'documents' ? (
             <DocumentManagement />
           ) : activeTab === 'sites' ? (

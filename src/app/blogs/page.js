@@ -9,10 +9,13 @@ import {
   generateDocumentStructuredData,
   generateWebsiteStructuredData,
 } from '@/lib/seo-utils';
+import SectionHeader from '@/components/sectionHeader/SectionHeader';
+import Image from 'next/image';
+import { formatDate } from '@/lib/utils';
 
 export default async function BlogsPage() {
   const page = 1;
-  const result = await getBlogs(page, 12);
+  const result = await getBlogs(page, 17);
 
   const { blogs = [], pagination = {} } = result.success
     ? result
@@ -31,8 +34,11 @@ export default async function BlogsPage() {
     tags: blog.tags || ['General'],
   }));
 
+  const middleBlogs = blogs.slice(3, 12);
+  const sidebarBlogs = blogs.slice(12, 17);
+
   return (
-    <div className="mt-16 min-h-screen bg-[#171717] overflow-hidden relative">
+    <div className="mt-16 min-h-screen bg-[#171717] relative">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -63,7 +69,7 @@ export default async function BlogsPage() {
       />
 
 
-    
+
 
       {/* Featured Posts Section */}
       {enhancedBlogs.length > 0 && (
@@ -71,30 +77,56 @@ export default async function BlogsPage() {
           <FeaturedPosts blogs={enhancedBlogs} />
         </section>
       )}
-
+      <SectionHeader badge={"FEATURED COLLECTION"} heading={"Latest Blog Posts"} />
       {/* Latest Posts Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header with Liquid Badge */}
-          <div className="flex items-center justify-between mb-12">
+          {/* <div className="flex items-center justify-between mb-12">
             <div>
               <div className="inline-block mb-4 group">
-                <div className="backdrop-blur-3xl bg-gradient-to-r from-neutral-900/60 via-neutral-800/40 to-neutral-900/60 border border-neutral-800/80 rounded-full px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <span className="text-xs font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tracking-wide">LATEST POSTS</span>
+                <div className="bg-zinc-900/60 border border-zinc-800 rounded-full px-4 py-2 shadow-lg transition-all duration-300">
+                  <span className="text-xs font-medium text-yellow-400 tracking-wide">FEATURED COLLECTION</span>
                 </div>
               </div>
               <h2 className="text-4xl md:text-5xl !font-light text-white mb-2 bg-gradient-to-r from-white via-blue-400 to-purple-400 bg-clip-text text-transparent">Latest Blog Posts</h2>
               <p className="text-lg text-neutral-400 !font-light">Stay updated with the newest articles and insights</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Content */}
           <>
             {/* Blog Grid */}
-            <div className="flex flex-col gap-6">
-              {blogs.slice(3).map((blog) => (
-                <BlogCard key={blog._id} blog={blog} />
-              ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+              {/* Middle Feed */}
+              <div className="lg:col-span-2 flex flex-col gap-6">
+                {middleBlogs.map((blog) => (
+                  <BlogCard key={blog._id} blog={blog} />
+                ))}
+              </div>
+
+              {/* Side Feed */}
+              {sidebarBlogs.length > 0 && (
+                <div className="lg:col-span-1 lg:sticky lg:top-24 space-y-6">
+                  <div className="py-6">
+                    <h3 className="text-xl md:text-2xl font-semibold mb-6 relative pb-3 text-white after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-10 after:h-[3px] after:bg-gradient-to-r after:from-yellow-500 after:to-yellow-500">
+                      Latest
+                    </h3>
+                    <div className="flex flex-col gap-4">
+                      {sidebarBlogs.map((blog) => (
+                        <BlogCardVergeStyle
+                          key={blog._id}
+                          slug={blog.slug}
+                          title={blog.title}
+                          imageUrl={blog.coverImage?.url}
+                          time={formatDate(blog.createdAt)}
+                          author={blog.author?.name || (typeof blog.author === 'string' ? blog.author : 'Anonymous')}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Pagination */}
@@ -108,6 +140,34 @@ export default async function BlogsPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function BlogCardVergeStyle({ slug, title, imageUrl, time, author }) {
+  return (
+    <Link href={`/blogs/${slug}`} className="group flex gap-4 items-start py-3 border-b border-zinc-800/60 last:border-none last:pb-0">
+      {imageUrl && (
+        <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-zinc-800">
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            sizes="80px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      )}
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-bold text-neutral-200 group-hover:text-yellow-400 transition-colors line-clamp-2 leading-snug">
+          {title}
+        </h4>
+        <div className="flex items-center gap-2 mt-2 text-[11px] text-zinc-500">
+          <span className="uppercase font-medium text-zinc-400">{author}</span>
+          <span>•</span>
+          <span>{time}</span>
+        </div>
+      </div>
+    </Link>
   );
 }
 

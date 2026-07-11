@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = 'https://Techolyze.dev';
+  const baseUrl = 'https://techolyze.com';
 
   return {
     rules: [
@@ -28,7 +28,7 @@ export default function robots() {
         ],
         allow: [
           '/',
-          '/_next/static/', 
+          '/_next/static/',
         ],
         disallow: ['/api/', '/admin/'],
       },

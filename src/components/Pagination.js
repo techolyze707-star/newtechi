@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function Pagination({ pagination = {}, baseUrl = '/documents' }) {
+export default function Pagination({ pagination = {}, baseUrl = '/documents', useQueryParam = false, queryParamName = 'page' }) {
   const {
     currentPage = 1,
     totalPages = 1,
@@ -11,6 +11,16 @@ export default function Pagination({ pagination = {}, baseUrl = '/documents' }) 
 
   const getPageUrl = (pageNum) => {
     const [path, queryString] = baseUrl.split('?');
+    if (useQueryParam) {
+      const params = new URLSearchParams(queryString || '');
+      if (pageNum === 1) {
+        params.delete(queryParamName);
+      } else {
+        params.set(queryParamName, pageNum);
+      }
+      const qs = params.toString();
+      return qs ? `${path}?${qs}` : path;
+    }
     const pagePath = pageNum === 1 ? path : `${path}/page/${pageNum}`;
     return queryString ? `${pagePath}?${queryString}` : pagePath;
   };
