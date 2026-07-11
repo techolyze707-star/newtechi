@@ -275,7 +275,7 @@ const ContactPage = () => {
 
 
   return (
-    <main className="mt-16 flex w-full flex-col items-end min-h-screen ">
+    <main className="flex w-full flex-col items-end min-h-screen ">
       {/* Contact Information Section */}
       <section
         className="flex items-start gap-[30px] self-stretch border-b border-b-neutral-800 

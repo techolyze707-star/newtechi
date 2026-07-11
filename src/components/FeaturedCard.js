@@ -82,7 +82,7 @@ export function FeaturedCard({
       <figure className="hidden md:block relative h-full overflow-hidden bg-neutral-800">
         <Image
          src={coverImageData.url}
-          alt={coverImageData.alt || blog.title}
+          alt={coverImageData.alt || title}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-90 group-hover:brightness-100"
           sizes="50vw"
@@ -99,7 +99,7 @@ export function FeaturedCard({
       </figure>
 
       {/* Right Content Area with Glassmorphism */}
-      <div className="relative flex items-center p-8 md:p-12 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm">
+      <div className="relative flex items-center p-8 md:p-12 bg-neutral-900/95 backdrop-blur-sm text-white">
         {/* Decorative gradient accent */}
         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-yellow-400 via-yellow-500 to-yellow-600"></div>
 
@@ -117,40 +117,40 @@ export function FeaturedCard({
           {/* Title (linked) */}
           <h2
             id={`featured-title-${slug}`}
-            className="text-3xl md:text-5xl font-bold mb-4 line-clamp-5 leading-tight drop-shadow-md" >
+            className="text-3xl md:text-5xl font-bold mb-4 line-clamp-5 leading-tight text-white drop-shadow-md" >
             <Link
               href={`/blogs/${slug}`}
-              className="hover:opacity-80 transition-opacity duration-300"
+              className="hover:opacity-80 transition-opacity duration-300 animate-pulse-once"
             >
               {title}
             </Link>
           </h2>
 
           {/* Description */}
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base line-clamp-3 mb-6 leading-relaxed">
+          <p className="hidden md:block text-neutral-400 text-sm md:text-base line-clamp-3 mb-6 leading-relaxed">
             {description}
           </p>
 
           {/* Meta Info with Icons */}
-          <footer className="flex items-center text-sm text-neutral-500 dark:text-neutral-500 gap-3 mb-6 flex-wrap">
+          <footer className="flex items-center text-sm text-neutral-450 gap-3 mb-6 flex-wrap">
             <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
               </svg>
-              <span className="text-neutral-900 dark:text-white font-semibold uppercase text-xs">
+              <span className="text-white font-semibold uppercase text-xs">
                 {author}
               </span>
             </span>
-            <span aria-hidden="true" className="text-neutral-400">•</span>
-            <time dateTime={date} className="flex items-center gap-1.5">
+            <span aria-hidden="true" className="text-neutral-500">•</span>
+            <time dateTime={date} className="flex items-center gap-1.5 text-neutral-400">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
               {formatDate(date)}
             </time>
-            <span aria-hidden="true" className="text-neutral-400">•</span>
-            <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <span aria-hidden="true" className="text-neutral-500">•</span>
+            <span className="flex items-center gap-1.5 text-neutral-450">
+              <svg className="w-4 h-4 text-neutral-450" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
               {readTime}

@@ -28,11 +28,11 @@ export default function BlogCard({ blog }) {
 
   return (
     <article
-      className="group flex flex-row items-center justify-start w-full border-b border-gray-200 dark:border-neutral-800 py-12 gap-6 transition rounded-sm hover:shadow-md pr-2"
+      className="group flex flex-col md:flex-row items-stretch md:items-center justify-start w-full border-b border-neutral-800 py-8 md:py-12 gap-5 md:gap-6 transition rounded-sm hover:shadow-md pr-2"
       aria-labelledby={`post-title-${slug}`}
     >
       {/* Left Image */}
-      <figure className="relative w-full md:w-64 h-44 md:h-44 rounded-sm overflow-hidden border border-gray-300 dark:border-neutral-700 shadow-inner shrink-0">
+      <figure className="relative w-full aspect-video md:aspect-auto md:w-64 md:h-44 rounded-sm overflow-hidden border border-neutral-850 bg-neutral-900 shrink-0">
         <Image
           src={coverImageData.url}
           alt={coverImageData.alt || blog.title}
@@ -46,34 +46,34 @@ export default function BlogCard({ blog }) {
       </figure>
 
       {/* Right Content */}
-      <div className="flex flex-col justify-center gap-3 flex-1">
+      <div className="flex flex-col justify-center gap-2 md:gap-3 flex-1 mt-3 md:mt-0">
         <div className="flex items-center gap-2">
           <CategoryBadge category={category} />
         </div>
 
         <h2
           id={`post-title-${slug}`}
-          className="text-gray-900 dark:text-white text-lg md:text-xl font-semibold leading-tight"
+          className="text-white text-lg md:text-xl font-semibold leading-tight"
         >
           <Link
             href={`/blogs/${slug}`}
-            className="group-hover:underline group-hover:decoration-yellow-400 group-hover:drop-shadow-md transition text-[24px] font-bold leading-[24px]"
+            className="group-hover:underline group-hover:decoration-yellow-400 group-hover:drop-shadow-md transition text-[20px] md:text-[24px] font-bold leading-snug md:leading-[24px]"
           >
             {title}
           </Link>
         </h2>
 
-        <p className="text-gray-700 dark:text-neutral-400 text-[16px] font-medium leading-[22px] line-clamp-3">
+        <p className="hidden md:block text-neutral-400 text-sm md:text-[16px] font-medium leading-relaxed md:leading-[22px] line-clamp-3">
           {description}
         </p>
 
-        <footer className="flex items-center text-[11px] text-gray-500 dark:text-neutral-500 gap-3 mt-2 flex-wrap">
-          <span className="text-gray-600 dark:text-neutral-400 uppercase">{author}</span>
-          <span aria-hidden="true" className="text-gray-400 dark:text-neutral-600">|</span>
+        <footer className="flex items-center text-[11px] text-neutral-500 gap-3 mt-1 md:mt-2 flex-wrap">
+          <span className="text-neutral-400 uppercase">{author}</span>
+          <span aria-hidden="true" className="text-neutral-600">|</span>
           <time dateTime={date}>{formatDate(date)}</time>
           {readTimeText && (
             <>
-              <span aria-hidden="true" className="text-gray-400 dark:text-neutral-600">|</span>
+              <span aria-hidden="true" className="text-neutral-600">|</span>
               <span>{readTimeText}</span>
             </>
           )}

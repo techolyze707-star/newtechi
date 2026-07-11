@@ -32,7 +32,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-[#171717] border-b border-zinc-800">
+    <nav className=" top-0 z-50 w-full bg-[#171717] border-b border-zinc-800">
       <div className="py-2 md:px-12 sm:px-4 px-2">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

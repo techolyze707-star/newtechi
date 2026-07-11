@@ -38,7 +38,7 @@ export default async function BlogsPage() {
   const sidebarBlogs = blogs.slice(12, 17);
 
   return (
-    <div className="mt-16 min-h-screen bg-[#171717] relative">
+    <div className="min-h-screen bg-[#171717] relative">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"

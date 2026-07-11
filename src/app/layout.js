@@ -104,10 +104,10 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/favicon.ico?v=2" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=2" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#6b46ff" />
+        <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content="#6b46ff" />
+        <meta name="msapplication-TileColor" content="#0a0a0a" />
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-gray-50">
         {/* Google Tag Manager (noscript) */}
