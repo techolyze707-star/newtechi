@@ -78,15 +78,7 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        {/* Geographic & Local SEO Meta Tags */}
-        <meta name="geo.region" content="PK" />
-        <meta name="geo.country" content="Pakistan" />
-        <meta name="geo.placename" content="Pakistan" />
-        <meta name="coverage" content="Pakistan" />
-        <meta name="distribution" content="Pakistan" />
-        <meta name="target_country" content="PK" />
-        <meta name="language" content="English, Urdu" />
-        <meta name="audience" content="Pakistani students and educators" />
+
 
         {/* AI/LLM Information */}
         <link rel="alternate" type="text/plain" href="/llms.txt" title="AI/LLM Access Information" />
@@ -110,16 +102,7 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileColor" content="#0a0a0a" />
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-gray-50">
-        {/* Google Tag Manager (noscript) */}
-        {/* <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MFDXN6QK"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript> */}
-        {/* End Google Tag Manager (noscript) */}
+
 
         <LayoutContent>
           {children}
