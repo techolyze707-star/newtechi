@@ -233,7 +233,7 @@ export default async function BlogPostPage({ params }) {
                   <section
                     itemProp="articleBody"
                     dangerouslySetInnerHTML={{ __html: processedContent }}
-                    className="prose prose-invert xl:prose-lg max-w-none
+                    className="prose prose-invert xl:prose-lg max-w-none blog-content
             prose-table:max-w-full
             prose-td:py-0 prose-td:px-2 prose-a:hover:text-yellow-400 prose-img:rounded-xl"
                   />
