@@ -15,6 +15,19 @@ export default function Footer() {
           <span>Punjab, Pakistan</span>
         </div>
 
+        {/* Navigation */}
+        <div className="flex space-x-6 justify-center">
+          <Link prefetch={false} href="/" className="hover:text-black dark:hover:text-white">
+            Home
+          </Link>
+          <Link prefetch={false} href="/blogs" className="hover:text-black dark:hover:text-white">
+            Blog
+          </Link>
+          <Link prefetch={false} href="/contact" className="hover:text-black dark:hover:text-white">
+            Contact
+          </Link>
+        </div>
+
         {/* Social */}
         <div className="flex space-x-4">
           <Link prefetch={false}
@@ -22,6 +35,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-black dark:hover:text-white"
+            aria-label="LinkedIn"
           >
             <Linkedin size={18} />
           </Link>
@@ -30,6 +44,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-black dark:hover:text-white"
+            aria-label="Facebook"
           >
             <Facebook size={18} />
           </Link>

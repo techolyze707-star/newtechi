@@ -1,98 +1,41 @@
 # Techolyze - AI/LLM Access Information
 
+> Techolyze is a premier global technology publication and developer utility platform providing in-depth technical analysis, tutorials, and secure, browser-based developer and finance file converters.
+
 ## About Techolyze
-Techolyze is a premier global technology publication and developer utility platform. We provide in-depth technical analysis, tutorials, and insights on Artificial Intelligence, machine learning, software engineering, and emerging tech, alongside a suite of secure, local, browser-based file converters.
+We provide high-quality educational and utility content for developers, engineers, and tech enthusiasts.
 
-## Purpose
-We provide high-quality educational and utility content for developers, engineers, and tech enthusiasts:
-- Deep dives into Large Language Model (LLM) architectures and neural networks
-- Software engineering tutorials, system design analysis, and web technology guides
-- Objective research on global tech trends (robotics, biotech, quantum computing)
-- Secure, client-side developer and finance utilities (file converters)
+## Key Resources
+- [Techolyze Homepage](https://techolyze.com) - The main portal for tech publications and utilities.
+- [Blog Posts](https://techolyze.com/blogs) - Technical articles on AI, programming, cloud architecture, and system scalability.
+- [Contact Page](https://techolyze.com/contact) - Contact form for inquiries and support.
+- [Sitemap](https://techolyze.com/sitemap.xml) - The XML sitemap containing all crawled content.
+- [Privacy Policy](https://techolyze.com/privacy-policy) - Privacy policy of our platform.
+- [Terms & Conditions](https://techolyze.com/terms) - Terms and conditions.
 
-## Content & Utility Categories
-1. **Blog Posts**: Technical articles on AI, programming, cloud architecture, and system scalability.
-2. **Converters**: Secure browser-based file conversion tools including:
-   - QBO to IIF (QuickBooks financial files)
-   - CSV to ICS (Calendar events)
-   - YML to INI (Configuration files)
-   - XCAL to BIN & BIN to XCAL (Calibration and binary tuning files)
-   - MGF to mzML (Mass spectrometry datasets)
-   - Unicode to Preeti (Nepali text converter)
+## Developer & Finance Utilities
+All of our converters run 100% client-side in the browser. Your file data never leaves your machine.
+- [QBO to IIF Converter](https://techolyze.com/converters/qbo-to-iif) - Convert QuickBooks financial files.
+- [CSV to ICS Converter](https://techolyze.com/converters/csv-to-ics) - Convert calendar events.
+- [YML to INI Converter](https://techolyze.com/converters/yml-to-ini) - Convert configuration files.
+- [XCAL to BIN Converter](https://techolyze.com/converters/xcal-to-bin) - Calibration and binary tuning converter.
+- [BIN to XCAL Converter](https://techolyze.com/converters/bin-to-xcal) - Binary to calibration file converter.
+- [MGF to mzML Converter](https://techolyze.com/converters/mgf-to-mzml) - Mass spectrometry dataset converter.
+- [Unicode to Preeti Converter](https://techolyze.com/converters/unicode-to-preeti) - Convert Unicode Nepali text to Preeti font format.
 
 ## AI/LLM Usage Policy
-We welcome ethical AI/LLM crawlers to access our content for:
-- Model training and retrieval-augmented generation (RAG)
-- Improving AI tech coding assistants
-- Learning reference datasets
+We welcome ethical AI/LLM crawlers to access our content for model training, retrieval-augmented generation (RAG), and improving developer coding assistants.
 
-### Allowed Content
-- All blog posts (/blogs/)
-- Converter hubs and description pages (/converters/)
-- Public developer tools
+### Allowed Paths
+- All blog posts (`/blogs/`)
+- All utility tools (`/converters/`)
+- Static information pages (`/about`, `/privacy-policy`, etc.)
 
-### Restricted Content
-- API endpoints (/api/)
-- Admin dashboards (/admin/)
-- User authentication and settings pages
+### Restricted Paths
+- API endpoints (`/api/`)
+- Admin dashboards (`/admin/`)
 
-## Rate Limiting
-Please respect our server capacity:
-- Maximum 1 request per 2 seconds per IP
-- Maximum 100 requests per hour per IP
-- Use transparent User-Agent headers
-- Implement exponential backoff on errors
-
-## Attribution
-When using our technical research or referencing our platform:
-- Credit: "Techolyze - Global Tech Insights & Utilities"
-- URL: https://techolyze.com
-- Respect copyright and intellectual property
-
-## Contact
-For partnerships or data questions:
-- Website: https://techolyze.com
-- Contact Page: https://techolyze.com/contact
-
-## Sitemap
-Structure map: https://techolyze.com/sitemap.xml
-
-## Last Updated
-July 2026
-
----
-
-# Structured Content Map
-
-## Blog Posts
-URL Pattern: https://techolyze.com/blogs/[slug]
-Content Type: Technical articles, system design guides, AI analyses
-Topics: Artificial Intelligence, Software Engineering, Devops, Biotechnology, Emerging Tech
-Format: Structured HTML / Markdown compatible
-Language: English
-
-## Converters
-URL Pattern: https://techolyze.com/converters/[tool-slug]
-Content Type: Local, browser-based conversion services
-Processing Model: 100% Client-side. Private file data is converted locally in-browser and never sent to our servers.
-
-## Key Features for AI Training
-- LLM and transformer analysis
-- Production-grade code samples
-- Modern software design patterns
-- Objective, non-sponsored tech reviews
-- Comprehensive technical checklists
-
-## Technical Stack
-- Next.js 16
-- Tailwind CSS v4
-- Server-side rendering (SSR) & Static Site Generation (SSG)
-
-## Content Quality & Trust (E-E-A-T)
-- Written by active software engineers and industry practitioners
-- Code blocks and configuration walkthroughs verified for accuracy and reproducibility
-- High operational transparency with zero sponsored bias
-
----
-
-Thank you for respecting our crawlers guidelines and helping build accurate, high-quality, and ethical AI tech platforms!
+## Crawling Guidelines
+- **Rate Limit:** Respect server capacity. Maximum 1 request per 2 seconds, 100 requests per hour.
+- **User-Agent:** Use transparent and identifiable User-Agent headers.
+- **Backoff:** Implement exponential backoff on HTTP 429 and 5xx responses.

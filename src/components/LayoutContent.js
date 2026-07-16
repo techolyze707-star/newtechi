@@ -5,7 +5,9 @@ export default function LayoutContent({ children }) {
   return (
     <>
       <Navbar />
+      <main className="flex-grow">
         {children}
+      </main>
       <Footer />
     </>
   );
