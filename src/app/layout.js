@@ -1,6 +1,7 @@
 import LayoutContent from "@/components/LayoutContent";
 import "./globals.css";
 import { generateDocumentMetadata, generateOrganizationStructuredData } from "@/lib/seo-utils";
+import Script from "next/script";
 // Headers import removed to allow static generation
 
 export const metadata = generateDocumentMetadata({
@@ -80,7 +81,19 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileColor" content="#0a0a0a" />
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-gray-50">
-
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4YSDXLWQT3"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4YSDXLWQT3');
+          `}
+        </Script>
 
         <LayoutContent>
           {children}
