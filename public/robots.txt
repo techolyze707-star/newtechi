@@ -31,8 +31,6 @@ Disallow: /admin/
 User-agent: GPTBot
 User-agent: ChatGPT-User
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Disallow: /_next/
@@ -44,8 +42,6 @@ User-agent: anthropic-ai
 User-agent: Claude-Web
 User-agent: ClaudeBot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -53,8 +49,6 @@ Crawl-delay: 2
 # Google Bard/Gemini
 User-agent: Google-Extended
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -62,8 +56,6 @@ Crawl-delay: 2
 # Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -71,8 +63,6 @@ Crawl-delay: 2
 # Common Crawl (used by many AI companies)
 User-agent: CCBot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -80,8 +70,6 @@ Crawl-delay: 2
 # Meta AI
 User-agent: FacebookBot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -89,8 +77,6 @@ Crawl-delay: 2
 # Cohere
 User-agent: cohere-ai
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -98,8 +84,6 @@ Crawl-delay: 2
 # Perplexity AI
 User-agent: PerplexityBot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -107,8 +91,6 @@ Crawl-delay: 2
 # ByteDance (TikTok)
 User-agent: Bytespider
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -116,8 +98,6 @@ Crawl-delay: 2
 # Diffbot
 User-agent: Diffbot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2
@@ -125,8 +105,7 @@ Crawl-delay: 2
 # Omgili
 User-agent: Omgilibot
 Allow: /blogs/
-Allow: /documents/
-Allow: /quiz/
+
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 2

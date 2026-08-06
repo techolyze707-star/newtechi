@@ -1,6 +1,6 @@
 import { getBlogs } from '@/actions/blogs';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Regenerate sitemap at most once per hour (ISR)
 
 // Helper function to safely parse dates
 function safeDate(dateValue, fallback = new Date()) {
