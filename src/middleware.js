@@ -69,8 +69,18 @@ export function middleware(request) {
 }
 
 // Configure which routes the middleware runs on
+// Excludes static files, images, fonts, api routes, and next internals to prevent high Edge Request costs
 export const config = {
   matcher: [
-    '/admin/:path*',
+    /*
+     * Match all request paths except:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt
+     * - files with extensions (.png, .jpg, .svg, .css, .js, etc.)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)',
   ],
 };
+
