@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { generateCSPHeader } from '@/lib/csp';
 
 /**
  * Proxy for handling auth redirects, trailing slashes, and security headers in Next.js 16
@@ -13,7 +12,7 @@ export default function proxy(request) {
     pathname.startsWith('/api/') ||
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/static/') ||
-    pathname.includes('.') // Files with extensions (images, fonts, etc.)
+    pathname.includes('.')
   ) {
     return NextResponse.next();
   }
@@ -34,20 +33,8 @@ export default function proxy(request) {
     return NextResponse.redirect(url, 301);
   }
 
-  // Add security headers
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  const cspHeader = generateCSPHeader(isDevelopment);
+  const response = NextResponse.next();
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('Content-Security-Policy', cspHeader);
-
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
-
-  response.headers.set('Content-Security-Policy', cspHeader);
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-XSS-Protection', '1; mode=block');
@@ -59,6 +46,6 @@ export default function proxy(request) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|llms.txt|manifest.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff|woff2|ttf|otf|txt|json|xml)$).*)',
   ],
 };
