@@ -15,12 +15,12 @@ export default async function Home() {
   const { blogs } = blogsResult.success ? blogsResult : { blogs: [] };
 
   // Extract the first blog as the high-visibility Featured Post
-  const featuredBlog = blogs[0];
+  const featuredBlog = blogs && blogs.length > 0 ? blogs[0] : null;
 
   // Distribute the remaining items dynamically across the lists below
-  const mainFeedBlogs = blogs.slice(1, 14);
-  const sidebarBlogs = blogs.slice(14, 18);
-  const coverImageData = getCoverImageData(featuredBlog.coverImage);
+  const mainFeedBlogs = blogs ? blogs.slice(1, 14) : [];
+  const sidebarBlogs = blogs ? blogs.slice(14, 18) : [];
+  const coverImageData = featuredBlog?.coverImage ? getCoverImageData(featuredBlog.coverImage) : null;
 
   return (
     <div className="bg-[#171717] min-h-screen text-white">

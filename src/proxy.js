@@ -2,10 +2,9 @@ import { NextResponse } from 'next/server';
 import { generateCSPHeader } from '@/lib/csp';
 
 /**
- * Middleware for handling trailing slashes and SEO redirects
- * Ensures consistent URL structure across the site
+ * Proxy for handling auth redirects, trailing slashes, and security headers in Next.js 16
  */
-export function middleware(request) {
+export default function proxy(request) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
 
@@ -19,16 +18,11 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
-  // ── Admin route protection ───────────────────────────────────────────────
-  // Guard every /admin/* page except /admin/login itself.
-  // The cookie `admin_session` is set by setAdminSession() in auth.js on login
-  // and cleared by clearAdminSession() on logout — giving us true server-side
-  // protection that client-side localStorage checks cannot provide.
+  // Admin route protection
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const sessionCookie = request.cookies.get('admin_session');
     if (!sessionCookie?.value) {
       const loginUrl = new URL('/admin/login', request.url);
-      // Pass the original destination so we can redirect back after login
       loginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(loginUrl);
     }
@@ -37,11 +31,10 @@ export function middleware(request) {
   // Remove trailing slash (except for root path)
   if (pathname !== '/' && pathname.endsWith('/')) {
     url.pathname = pathname.slice(0, -1);
-    return NextResponse.redirect(url, 301); // Permanent redirect
+    return NextResponse.redirect(url, 301);
   }
 
   // Add security headers
-  // Content Security Policy - protects against XSS attacks
   const isDevelopment = process.env.NODE_ENV === 'development';
   const cspHeader = generateCSPHeader(isDevelopment);
 
@@ -55,32 +48,17 @@ export function middleware(request) {
   });
 
   response.headers.set('Content-Security-Policy', cspHeader);
-
-  // Additional security headers
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-  // SEO headers
   response.headers.set('X-Robots-Tag', 'index, follow');
 
   return response;
 }
 
-// Configure which routes the middleware runs on
-// Excludes static files, images, fonts, api routes, and next internals to prevent high Edge Request costs
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt
-     * - files with extensions (.png, .jpg, .svg, .css, .js, etc.)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)',
   ],
 };
-
