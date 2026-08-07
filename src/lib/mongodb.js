@@ -1,4 +1,12 @@
 import mongoose from 'mongoose';
+import dns from 'dns';
+
+// Fallback DNS servers to resolve MongoDB Atlas SRV queries on Windows/local networks
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {
+  // Ignore if unsupported in runtime
+}
 
 /**
  * Global is used here to maintain a cached connection across hot reloads

@@ -58,19 +58,17 @@ export default function RootLayout({ children }) {
         {/* End Google Tag Manager */}
 
         {/* Organization Structured Data */}
-        <script
+        <Script
+          id="organization-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateOrganizationStructuredData()),
           }}
         />
 
-
-
         {/* AI/LLM Information */}
         <link rel="alternate" type="text/plain" href="/llms.txt" title="AI/LLM Access Information" />
         <meta name="ai-content-declaration" content="This site provides educational content. AI crawlers welcome with rate limiting." />
-
 
         {/* Favicon: explicit PNG link (cache-busted) */}
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -80,9 +78,9 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content="#0a0a0a" />
 
-        <script data-grow-initializer="">
+        <Script id="grow-me-initializer" strategy="afterInteractive">
           {`!(function(){window.growMe||((window.growMe=function(e){window.growMe.push(e);}),(window.growMe=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo1Y2I4NGY4OC1jNGVjLTQ0ZDMtOGIwZS1mYzRlYTE3ZDg5YmQ=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();`}
-        </script>
+        </Script>
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-gray-50">
         {/* Google Analytics */}
