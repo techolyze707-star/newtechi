@@ -57,6 +57,7 @@ export default function BlogCard({ blog }) {
         >
           <Link
             href={`/blogs/${slug}`}
+            prefetch={false}
             className="group-hover:underline group-hover:decoration-yellow-400 group-hover:drop-shadow-md transition text-[20px] md:text-[24px] font-bold leading-snug md:leading-[24px]"
           >
             {title}
