@@ -49,7 +49,7 @@ export default function FeaturedPosts({ blogs }) {
             {/* --- Left Big Post --- */}
             {first && (
                 <article className="col-span-12 lg:col-span-6 row-span-2 relative rounded-3xl overflow-hidden group h-[400px] lg:h-[500px] bg-zinc-900 border border-zinc-800 shadow-2xl transition-all duration-500 hover:border-zinc-700">
-                    <Link href={`/blogs/${first.slug}`} className="block relative w-full h-full">
+                    <Link href={`/blogs/${first.slug}`} prefetch={false} className="block relative w-full h-full">
                         <Image
                             src={getCoverImageUrl(first.coverImage)}
                             alt={getCoverImageAlt(first.coverImage, first.title)}
@@ -80,6 +80,7 @@ export default function FeaturedPosts({ blogs }) {
                         <div className="relative p-2 sm:p-6 flex items-center gap-4 h-full">
                             <Link
                                 href={`/blogs/${second.slug}`}
+                                prefetch={false}
                                 className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 relative flex-shrink-0 rounded-2xl overflow-hidden"
                             >
                                 <Image
@@ -96,7 +97,7 @@ export default function FeaturedPosts({ blogs }) {
                                         {second.tags?.[0] || "INSIGHTS"}
                                     </span>
                                 </div>
-                                <Link href={`/blogs/${second.slug}`}>
+                                <Link href={`/blogs/${second.slug}`} prefetch={false}>
                                     <h4 className="font-medium text-md md:text-xl text-white group-hover:text-yellow-400 transition-colors duration-300 line-clamp-2">
                                         {second.title}
                                     </h4>
@@ -118,6 +119,7 @@ export default function FeaturedPosts({ blogs }) {
                         <div className="relative p-2 sm:p-6 flex items-center gap-4 h-full">
                             <Link
                                 href={`/blogs/${third.slug}`}
+                                prefetch={false}
                                 className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 relative flex-shrink-0 rounded-2xl overflow-hidden"
                             >
                                 <Image
@@ -134,7 +136,7 @@ export default function FeaturedPosts({ blogs }) {
                                         {third.tags?.[0] || "LEARNING"}
                                     </span>
                                 </div>
-                                <Link href={`/blogs/${third.slug}`}>
+                                <Link href={`/blogs/${third.slug}`} prefetch={false}>
                                     <h4 className="font-medium text-md md:text-xl text-white group-hover:text-yellow-400 transition-colors duration-300 line-clamp-2">
                                         {third.title}
                                     </h4>
