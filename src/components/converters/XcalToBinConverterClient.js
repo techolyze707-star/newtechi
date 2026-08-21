@@ -35,20 +35,21 @@ function parseXmlXcal(xcalText) {
     if (!offset || !value) continue;
 
     const address = parseInt(offset, 16);
-    const numValue = parseInt(value, 10);
+    const numValue = Number(value); // Number() handles uint32 values > 2^31 correctly
 
     if (type === 'uint8' || type === 'byte') {
       memory.set(address, numValue & 0xff);
       highestAddress = Math.max(highestAddress, address);
     } else if (type === 'uint16' || type === 'word') {
-      memory.set(address, (numValue >> 8) & 0xff);
-      memory.set(address + 1, numValue & 0xff);
+      memory.set(address,     numValue & 0xff);          // LSB first (little-endian)
+      memory.set(address + 1, (numValue >> 8) & 0xff);  // MSB second
       highestAddress = Math.max(highestAddress, address + 1);
     } else if (type === 'uint32' || type === 'dword') {
-      memory.set(address, (numValue >> 24) & 0xff);
-      memory.set(address + 1, (numValue >> 16) & 0xff);
-      memory.set(address + 2, (numValue >> 8) & 0xff);
-      memory.set(address + 3, numValue & 0xff);
+      // Use >>> (unsigned right shift) — required for values above 2^31 like 0xDEADBEEF
+      memory.set(address,      numValue         & 0xff); // byte 0 (LSB)
+      memory.set(address + 1, (numValue >>>  8) & 0xff); // byte 1
+      memory.set(address + 2, (numValue >>> 16) & 0xff); // byte 2
+      memory.set(address + 3, (numValue >>> 24) & 0xff); // byte 3 (MSB)
       highestAddress = Math.max(highestAddress, address + 3);
     }
   }
@@ -71,14 +72,15 @@ function parseXmlXcal(xcalText) {
         memory.set(address, numValue & 0xff);
         address += 1;
       } else if (type === 'uint16' || type === 'word') {
-        memory.set(address, (numValue >> 8) & 0xff);
-        memory.set(address + 1, numValue & 0xff);
+        memory.set(address,     numValue & 0xff);          // LSB first (little-endian)
+        memory.set(address + 1, (numValue >> 8) & 0xff);  // MSB second
         address += 2;
       } else if (type === 'uint32' || type === 'dword') {
-        memory.set(address, (numValue >> 24) & 0xff);
-        memory.set(address + 1, (numValue >> 16) & 0xff);
-        memory.set(address + 2, (numValue >> 8) & 0xff);
-        memory.set(address + 3, numValue & 0xff);
+        // Use >>> (unsigned right shift) — required for values above 2^31
+        memory.set(address,      numValue         & 0xff); // byte 0 (LSB)
+        memory.set(address + 1, (numValue >>>  8) & 0xff); // byte 1
+        memory.set(address + 2, (numValue >>> 16) & 0xff); // byte 2
+        memory.set(address + 3, (numValue >>> 24) & 0xff); // byte 3 (MSB)
         address += 4;
       }
     }

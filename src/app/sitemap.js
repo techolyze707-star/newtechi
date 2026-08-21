@@ -24,7 +24,7 @@ export default async function sitemap() {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: 'daily',
-      priority: 1.1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/blogs`,

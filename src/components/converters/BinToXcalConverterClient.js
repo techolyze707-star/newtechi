@@ -183,7 +183,7 @@ function binToXmlXcal(binaryData, silenceThreshold = 16, knownRanges = []) {
     for (let address = run.start; address <= run.end; address += 2) {
       const offset = address.toString(16).toUpperCase().padStart(4, '0');
       if (address + 1 <= run.end) {
-        const val16 = (binaryData[address] << 8) | binaryData[address + 1];
+        const val16 = binaryData[address] | (binaryData[address + 1] << 8); // little-endian
         xml += `    <Parameter name="Param_${paramIndex}" offset="0x${offset}" type="uint16" value="${val16}" />\n`;
       } else {
         const val8 = binaryData[address];
@@ -193,20 +193,10 @@ function binToXmlXcal(binaryData, silenceThreshold = 16, knownRanges = []) {
     }
   }
 
-  const firstRun = runs[0];
-  if (firstRun) {
-    xml += '\n    <!-- Data Table (sample from first non-silent region) -->\n';
-    xml += `    <Table name="Data_Table" offset="0x${firstRun.start.toString(16).toUpperCase().padStart(4, '0')}" type="uint8">\n`;
-    xml += '        <Values>';
-    const sampleValues = [];
-    const sampleEnd = Math.min(firstRun.end, firstRun.start + 15);
-    for (let i = firstRun.start; i <= sampleEnd; i += 1) {
-      sampleValues.push(binaryData[i]);
-    }
-    xml += sampleValues.join(', ');
-    xml += '</Values>\n';
-    xml += '    </Table>\n';
-  }
+  // NOTE: No Data_Table block is emitted here.
+  // All bytes are already captured by the Parameter elements above.
+  // Adding a Table at the same offsets would overwrite those parameters
+  // when the XCAL is converted back to BIN.
 
   xml += '</Calibration>';
   return xml;

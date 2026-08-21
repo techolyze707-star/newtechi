@@ -1,0 +1,98 @@
+[
+  {
+    "_id": "65c8f8b8e4b0a1a1a1a1a101",
+    "name": "zain khokhar",
+    "slug": "zain-khokhar",
+    "bio": "Passionate developer and content writer specializing in web technologies and AI.",
+    "avatar": "https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp",
+    "email": "zain@vuedu.dev",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-10T14:56:16.577Z",
+    "__v": 0
+  },
+  {
+    "_id": "65c8f8b8e4b0a1a1a1a1a102",
+    "name": "max reed",
+    "slug": "max-reed",
+    "bio": "Senior software engineer and tech enthusiast sharing insights on software engineering and system architecture.",
+    "avatar": "https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp",
+    "email": "max@vuedu.dev",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-10T14:56:16.577Z",
+    "__v": 0
+  },
+  {
+    "_id": "65c8f8b8e4b0a1a1a1a1a103",
+    "name": "mr osman",
+    "slug": "mr-osman",
+    "bio": "Experienced writer focusing on tools, productivity, and full-stack development.",
+    "avatar": "https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp",
+    "email": "osman@vuedu.dev",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-10T14:56:16.578Z",
+    "__v": 0
+  },
+  {
+    "_id": "65c8f8b8e4b0a1a1a1a1a104",
+    "name": "md zawyar",
+    "slug": "md-zawyar",
+    "bio": "Tech writer and developer exploring next-gen frontend frameworks and developer workflows.",
+    "avatar": "https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp",
+    "email": "zawyar@vuedu.dev",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-10T14:56:16.578Z",
+    "__v": 0
+  },
+  {
+    "_id": "65c8f8b8e4b0a1a1a1a1a105",
+    "name": "naylon saeer",
+    "slug": "naylon-saeer",
+    "bio": "Specialist in no-code app builders, visual coding platforms, and digital transformation.",
+    "avatar": "https://res.cloudinary.com/dj8ktpsll/image/upload/v1756547448/uploads/default-avatar.webp",
+    "email": "naylon@vuedu.dev",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-10T14:56:16.578Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a51b3c6eb15832eb02b0680",
+    "name": "usman75",
+    "slug": "usman75",
+    "bio": "somethigns'",
+    "avatar": "https://res.cloudinary.com/m2agmyyj/image/upload/v1783739330/avatars/cjcjtenrrmxerfmjmt88.jpg",
+    "email": "usman@gmail.com",
+    "social": {
+      "twitter": "",
+      "linkedin": "",
+      "website": ""
+    },
+    "isActive": true,
+    "createdAt": "2026-07-11T03:08:55.012Z",
+    "__v": 0
+  }
+]
