@@ -57,6 +57,14 @@ export default function RootLayout({ children }) {
 
         {/* End Google Tag Manager */}
 
+        <Script
+          src="//scripts.mediavine.com/tags/9de9ab34-1859-43f4-a352-0427dd25af5a.js"
+          strategy="afterInteractive"
+          async
+          data-noptimize="1"
+          data-cfasync="false"
+        />
+
         {/* Organization Structured Data */}
         <Script
           id="organization-jsonld"
