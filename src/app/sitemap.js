@@ -99,6 +99,12 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/converters/romanized-to-preeti`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
   
   
   ];

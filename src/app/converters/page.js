@@ -91,6 +91,16 @@ const converterCategories = [
           </svg>
         ),
       },
+      {
+        title: 'Romanized to Preeti Converter',
+        href: '/converters/romanized-to-preeti',
+        description: 'Type Nepali in English phonetics and get Preeti font output instantly — no Devanagari keyboard needed.',
+        icon: (
+          <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+          </svg>
+        ),
+      },
     ],
   },
 ];
@@ -131,7 +141,10 @@ export const metadata = {
     'CSV to ICS',
     'QBO to IIF',
     'YAML to INI',
-    'secure local file conversion'
+    'secure local file conversion',
+    'romanized to preeti',
+    'nepali preeti converter',
+    'roman nepali to preeti'
   ],
   alternates: {
     canonical: pageUrl,
