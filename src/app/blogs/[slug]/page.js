@@ -171,10 +171,10 @@ export default async function BlogPostPage({ params }) {
               {/* Left side - Date & Reading Time stacked */}
               <div className="flex flex-col text-sm text-white shrink-0">
                 <time
-                  dateTime={blog.createdAt}
+                  dateTime={blog.updatedAt || blog.createdAt}
                   itemProp="datePublished"
                 >
-                  {formatDate(blog.createdAt)}
+                  {formatDate(blog.updatedAt || blog.createdAt)}
                 </time>
                 <span itemProp="timeRequired">
                   {readingTime} min read
@@ -243,7 +243,7 @@ export default async function BlogPostPage({ params }) {
 
               {/* Author Info - Full version at bottom */}
               <footer className="mt-12 pt-8 border-t border-white" aria-label="Author information">
-                <AuthorInfo author={blog.author} publishedDate={blog.createdAt} />
+                <AuthorInfo author={blog.author} publishedDate={blog.updatedAt || blog.createdAt} />
               </footer>
             </div>
 
